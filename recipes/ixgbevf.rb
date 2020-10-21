@@ -13,7 +13,7 @@ version     = node['ec2-drivers']['ixgbevf']['version']
 built_rpm   = "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild/noarch/ixgbevf-#{version}-1dkms.noarch.rpm"
 install_loc = "#{node['ec2-drivers']['localrepo']['root']}/#{node['kernel']['machine']}/RPMS/ixgbevf-#{version}-1dkms.noarch.rpm"
 
-package 'rpm-build'
+package %w[createrepo rpm-build]
 
 directory "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild" do
   owner 'root'

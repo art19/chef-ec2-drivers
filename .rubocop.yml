@@ -10,6 +10,9 @@ Layout/EndOfLine:
 Layout/LineLength:
   Max: 160 # 80*2 - you have a widescreen monitor, right?
 
+Style/FormatStringToken:
+  Enabled: false # false positive on RPM command line
+
 Style/HashEachMethods:
   Enabled: false # Marked unsafe by Rubocop
 

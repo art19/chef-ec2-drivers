@@ -13,8 +13,6 @@ version     = node['ec2-drivers']['ena']['version']
 built_rpm   = "#{Chef::Config[:file_cache_path]}/ena-rpmbuild/noarch/ena-#{version}-1dkms.noarch.rpm"
 install_loc = "#{node['ec2-drivers']['localrepo']['root']}/#{node['kernel']['machine']}/RPMS/ena-#{version}-1dkms.noarch.rpm"
 
-package %w[createrepo rpm-build]
-
 directory "#{Chef::Config[:file_cache_path]}/ena-rpmbuild" do
   owner 'root'
   group 'root'

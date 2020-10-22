@@ -26,12 +26,14 @@ repo = "#{node['ec2-drivers']['localrepo']['root']}/#{arch}"
   end
 end
 
+# This is executed with `--workers 1` to make debugging easier if something explodes
 execute 'Create/Update EC2 Drivers Yum Repository' do
-  command "createrepo --workers 1 #{repo}"
+  command "createrepo -v --workers 1 --update #{repo}"
 
   action :nothing
 
-  notifies :create, "yum_repository[ec2-drivers-#{arch}-local]", :immediately
+  notifies :create,    "yum_repository[ec2-drivers-#{arch}-local]", :immediately
+  notifies :makecache, "yum_repository[ec2-drivers-#{arch}-local]", :immediately
 end
 
 yum_repository "ec2-drivers-#{arch}-local" do

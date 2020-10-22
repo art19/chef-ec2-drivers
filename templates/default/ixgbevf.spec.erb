@@ -27,7 +27,7 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/src/%{module}-%{version}/
 mkdir -p %{buildroot}%{_mandir}/man7/
 cp -r src scripts %{buildroot}/usr/src/%{module}-%{version}
-gzip -c ixgbevf.7 > %{_mandir}/man7/ixgbevf.7.gz
+gzip -c ixgbevf.7 > %{buildroot}%{_mandir}/man7/ixgbevf.7.gz
 cat <<'EOS' > %{buildroot}/usr/src/%{module}-%{version}/dkms.conf
 PACKAGE_NAME="ixgbevf"
 PACKAGE_VERSION="<%= @version %>"

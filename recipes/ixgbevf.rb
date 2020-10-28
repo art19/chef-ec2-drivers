@@ -44,7 +44,8 @@ template "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild/ixgbevf.spec" do
 end
 
 execute 'Build ixgbevf RPM' do
-  cwd "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild"
+  cwd         "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild"
+  live_stream true
 
   command "rpmbuild -bb --define '_topdir %(pwd)' --define '_ntopdir %(pwd)' --define '_builddir %{_ntopdir}/build' " \
           "--define '_buildrootdir %{_builddir}' --define '_sourcedir %{_ntopdir}' --define '_specdir %{_ntopdir}' " \

@@ -44,7 +44,8 @@ template "#{Chef::Config[:file_cache_path]}/ena-rpmbuild/ena.spec" do
 end
 
 execute 'Build ena RPM' do
-  cwd "#{Chef::Config[:file_cache_path]}/ena-rpmbuild"
+  cwd         "#{Chef::Config[:file_cache_path]}/ena-rpmbuild"
+  live_stream true
 
   command "rpmbuild -bb --define '_topdir %(pwd)' --define '_ntopdir %(pwd)' --define '_builddir %{_ntopdir}/build' " \
           "--define '_buildrootdir %{_builddir}' --define '_sourcedir %{_ntopdir}' --define '_specdir %{_ntopdir}' " \

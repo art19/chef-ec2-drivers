@@ -74,6 +74,6 @@ end
 package 'ena'
 
 # And trigger a DKMS build (shouldn't be needed but is done in case it was missed)
-execute 'dkms install ena' do
+execute "dkms install ena/#{version}" do
   live_stream true
 end

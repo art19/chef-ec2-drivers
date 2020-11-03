@@ -17,7 +17,7 @@ install_loc = "#{node['ec2-drivers']['localrepo']['root']}/#{node['kernel']['mac
   #{Chef::Config[:file_cache_path]}/ena-rpmbuild
   #{Chef::Config[:file_cache_path]}/ena-rpmbuild/patches
 ].each do |dir|
-  directory dirs do
+  directory dir do
     owner 'root'
     group 'root'
     mode  '0755'

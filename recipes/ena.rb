@@ -13,12 +13,24 @@ version     = node['ec2-drivers']['ena']['version']
 built_rpm   = "#{Chef::Config[:file_cache_path]}/ena-rpmbuild/noarch/ena-#{version}-1dkms.noarch.rpm"
 install_loc = "#{node['ec2-drivers']['localrepo']['root']}/#{node['kernel']['machine']}/RPMS/ena-#{version}-1dkms.noarch.rpm"
 
-directory "#{Chef::Config[:file_cache_path]}/ena-rpmbuild" do
-  owner 'root'
-  group 'root'
-  mode  '0755'
+%W[
+  #{Chef::Config[:file_cache_path]}/ena-rpmbuild
+  #{Chef::Config[:file_cache_path]}/ena-rpmbuild/patches
+].each do |dir|
+  directory dirs do
+    owner 'root'
+    group 'root'
+    mode  '0755'
 
-  not_if { ::File.exist?(install_loc) }
+    not_if { ::File.exist?(install_loc) }
+  end
+end
+
+cookbook_file "#{Chef::Config[:file_cache_path]}/ena-rpmbuild/patches/kernel-5.9.patch" do
+  source 'ena-kernel-5.9.patch'
+  owner  'root'
+  group  'root'
+  mode   '0644'
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/ena-rpmbuild/amzn-drivers-ena_linux_#{version}.tar.gz" do

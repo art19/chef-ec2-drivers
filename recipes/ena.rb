@@ -26,11 +26,14 @@ install_loc = "#{node['ec2-drivers']['localrepo']['root']}/#{node['kernel']['mac
   end
 end
 
-cookbook_file "#{Chef::Config[:file_cache_path]}/ena-rpmbuild/patches/kernel-5.9.patch" do
-  source 'ena-kernel-5.9.patch'
-  owner  'root'
-  group  'root'
-  mode   '0644'
+# This bug was fixed in ENA 2.3.0
+if version.to_f < 2.3
+  cookbook_file "#{Chef::Config[:file_cache_path]}/ena-rpmbuild/patches/kernel-5.9.patch" do
+    source 'ena-kernel-5.9.patch'
+    owner  'root'
+    group  'root'
+    mode   '0644'
+  end
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/ena-rpmbuild/amzn-drivers-ena_linux_#{version}.tar.gz" do

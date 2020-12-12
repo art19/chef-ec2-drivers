@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 default['ec2-drivers']['ena'] = {
-  'version' => '2.2.11',
+  'version' => '2.4.0',
   'checksums' => {
     '2.2.11' => 'e01cf2456d399804593339507ebe89a197d6ed640e0730e0af25efb2681f6c60',
     '2.3.0'  => '0e16f24a438f8329c4982511a459d4e896caaba94384b042b4e0500f2de89990',

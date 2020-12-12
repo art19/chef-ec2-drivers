@@ -1,8 +1,17 @@
+.editorconfig   text eol=lf
+.foodcritic     text eol=lf
+.gitattributes  text eol=lf
+.gitignore      text eol=lf
 Berksfile       text eol=lf
 Berksfile.lock  text eol=lf
+CODEOWNERS      text eol=lf
+Makefile        text eol=lf
 *.conf          text eol=lf
 *.erb           text eol=lf
 *.init          text eol=lf
 *.json          text eol=lf
+*.md            text eol=lf
+*.patch         text eol=lf
 *.rb            text eol=lf
 *.sh            text eol=lf
+*.yml           text eol=lf

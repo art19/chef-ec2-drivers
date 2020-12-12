@@ -23,9 +23,11 @@ for the DKMS framework.
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/src/%{module}-%{version}/
-mkdir -p %{buildroot}/usr/src/%{module}-%{version}/patches
 cp -r kernel/linux/ena kernel/linux/common %{buildroot}/usr/src/%{module}-%{version}
+<% if @version.to_f < 2.3 %>
+mkdir -p %{buildroot}/usr/src/%{module}-%{version}/patches
 cp %{_topdir}/patches/kernel-5.9.patch %{buildroot}/usr/src/%{module}-%{version}/patches
+<% end %>
 cat <<'EOS' > %{buildroot}/usr/src/%{module}-%{version}/dkms.conf
 PACKAGE_NAME="ena"
 PACKAGE_VERSION="<%= @version %>"

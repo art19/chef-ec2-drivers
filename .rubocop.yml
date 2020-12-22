@@ -1,0 +1,23 @@
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Layout/LineLength:
+  Max: 160 # 80*2 - you have a widescreen monitor, right?
+
+Style/FormatStringToken:
+  Enabled: false # false positive on RPM command line
+
+Style/HashEachMethods:
+  Enabled: false # Marked unsafe by Rubocop
+
+Style/HashTransformKeys:
+  Enabled: false # Marked unsafe by Rubocop
+
+Style/HashTransformValues:
+  Enabled: false # Marked unsafe by Rubocop

@@ -1,0 +1,80 @@
+%define module ena
+
+Summary: ena kernel driver
+Name: %{module}
+Version: <%= @version %>
+Release: 1dkms
+License: GPLv2
+Vendor: AWS
+Packager: Local System Administrator <root@localhost>
+Group: System Environment/Base
+BuildArch: noarch
+Requires: dkms gcc bash sed
+URL: https://github.com/amzn/amzn-drivers/
+Source: amzn-drivers-%{module}_linux_%{version}.tar.gz
+
+%description
+This package contains ena kernel driver meant
+for the DKMS framework.
+
+%prep
+%setup -n amzn-drivers-%{module}_linux_%{version} -q
+
+%install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/src/%{module}-%{version}/
+cp -r kernel/linux/ena kernel/linux/common %{buildroot}/usr/src/%{module}-%{version}
+<% if @version.to_f < 2.3 %>
+mkdir -p %{buildroot}/usr/src/%{module}-%{version}/patches
+cp %{_topdir}/patches/kernel-5.9.patch %{buildroot}/usr/src/%{module}-%{version}/patches
+<% end %>
+cat <<'EOS' > %{buildroot}/usr/src/%{module}-%{version}/dkms.conf
+PACKAGE_NAME="ena"
+PACKAGE_VERSION="<%= @version %>"
+CLEAN="make -C ena clean"
+MAKE="make -C ena BUILD_KERNEL=${kernelver}"
+BUILT_MODULE_LOCATION[0]="ena/"
+BUILT_MODULE_NAME[0]="ena"
+DEST_MODULE_LOCATION[0]="/updates"
+DEST_MODULE_NAME[0]="ena"
+AUTOINSTALL="yes"
+<% if @version.to_f < 2.3 %>
+PATCH[0]=kernel-5.9.patch
+PATCH_MATCH[0]=^5.9.*
+<% end %>
+EOS
+
+%clean
+rm -rf %{buildroot}
+
+%files
+%defattr(0644,root,root)
+%attr(0755,root,root) /usr/src/%{module}-%{version}/
+%doc kernel/linux/ena/COPYING
+<% if @version.to_f < 2.3 %>
+%doc kernel/linux/ena/README
+<% else %>
+%doc kernel/linux/ena/README.rst
+<% end %>
+%doc kernel/linux/ena/RELEASENOTES.md
+
+%post
+occurrences=$(/usr/sbin/dkms status | grep "%{module}" | grep "%{version}" | wc -l)
+if [ ! occurrences > 0 ];
+then
+    /usr/sbin/dkms add -m %{module} -v %{version}
+fi
+/usr/sbin/dkms build -m %{module} -v %{version}
+/usr/sbin/dkms install -m %{module} -v %{version}
+exit 0
+
+%preun
+/usr/sbin/dkms remove -m %{module} -v %{version} --all
+exit 0
+
+%changelog
+* Fri Dec 11 2020 Keith Gable <keith@art19.com> <%= @version %>-1dkms
+- Added support for ENA >= 2.3.0, which doesn't need patches on kernel 5.9 and uses a different README file
+
+* Tue Oct 20 2020 Keith Gable <keith@art19.com> <%= @version %>-1dkms
+- Integrated spec file into Chef cookbook

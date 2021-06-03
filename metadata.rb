@@ -3,7 +3,7 @@
 name             'ec2-drivers'
 maintainer       'Keith Gable'
 maintainer_email 'keith@art19.com'
-license          'Hippocratic-2.1'
+license          'MIT'
 description      'Cookbook that installs the latest versions of Amazon EC2 drivers'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.0.2'

@@ -74,6 +74,6 @@ end
 package 'ixgbevf'
 
 # And trigger a DKMS build (shouldn't be needed but is done in case it was missed)
-execute "dkms install ixgbevf/#{version}" do
+execute "dkms install ixgbevf/#{version} || (cat /var/lib/dkms/ixgbevf/#{version}/build/make.log && exit 1)" do
   live_stream true
 end

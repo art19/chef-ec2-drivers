@@ -11,7 +11,7 @@ default['ec2-drivers']['ena'] = {
 }
 
 default['ec2-drivers']['ixgbevf'] = {
-  'version' => '4.10.2',
+  'version' => '4.9.3',
   'checksums' => {
     '4.9.3'  => '0a74665ac3e5e41b9bb12ef06617f3019980d2a66b3d1c52c33d3845dd557013',
     '4.10.2' => '699e9a78e474481fcbbfbad0a12d0edd704a19c6de173d3666c919c7e361868f',

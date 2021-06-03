@@ -11,4 +11,4 @@ package %w[createrepo dkms kernel-devel kernel-headers rpm-build]
 
 include_recipe '::localrepo'
 include_recipe '::ena'
-include_recipe '::ixgbevf'
+include_recipe '::ixgbevf' if intel?

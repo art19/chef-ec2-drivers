@@ -22,7 +22,7 @@ directory "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild" do
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild/ixgbevf-#{version}.tar.gz" do
-  source "https://downloads.sourceforge.net/project/e1000/ixgbevf%20stable/#{version}/ixgbevf-#{version}.tar.gz"
+  source "https://downloadmirror.intel.com/#{node['ec2-drivers']['ixgbevf']['intel_download_ids'][version]}/eng/ixgbevf-#{version}.tar.gz"
   owner  'root'
   group  'root'
   mode   '0644'
@@ -74,6 +74,6 @@ end
 package 'ixgbevf'
 
 # And trigger a DKMS build (shouldn't be needed but is done in case it was missed)
-execute "dkms install ixgbevf/#{version}" do
+execute "dkms install ixgbevf/#{version} || (cat /var/lib/dkms/ixgbevf/#{version}/build/make.log && exit 1)" do
   live_stream true
 end

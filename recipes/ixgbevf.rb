@@ -9,6 +9,9 @@
 
 raise NotImplementedError, "ec2-drivers::ixgbevf only supports CentOS/RHEL at this time, not #{node['platform']}" unless platform_family?('rhel')
 
+# Required to build ixgbevf
+package 'elfutils-libelf-devel'
+
 version     = node['ec2-drivers']['ixgbevf']['version']
 built_rpm   = "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild/noarch/ixgbevf-#{version}-1dkms.noarch.rpm"
 install_loc = "#{node['ec2-drivers']['localrepo']['root']}/#{node['kernel']['machine']}/RPMS/ixgbevf-#{version}-1dkms.noarch.rpm"

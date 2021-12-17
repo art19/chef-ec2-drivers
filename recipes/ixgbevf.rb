@@ -25,7 +25,7 @@ directory "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild" do
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild/ixgbevf-#{version}.tar.gz" do
-  source "https://downloadmirror.intel.com/#{node['ec2-drivers']['ixgbevf']['intel_download_ids'][version]}/eng/ixgbevf-#{version}.tar.gz"
+  source "https://downloadmirror.intel.com/#{node['ec2-drivers']['ixgbevf']['intel_download_ids'][version]}/ixgbevf-#{version}.tar.gz"
   owner  'root'
   group  'root'
   mode   '0644'

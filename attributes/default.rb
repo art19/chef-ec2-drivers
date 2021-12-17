@@ -13,20 +13,23 @@ default['ec2-drivers']['ena'] = {
 }
 
 default['ec2-drivers']['ixgbevf'] = {
-  'version'            => '4.12.4',
+  'version'            => '4.13.3',
   'install'            => true,
   'checksums'          => {
     '4.9.3'  => '0a74665ac3e5e41b9bb12ef06617f3019980d2a66b3d1c52c33d3845dd557013',
     '4.10.2' => '699e9a78e474481fcbbfbad0a12d0edd704a19c6de173d3666c919c7e361868f',
     '4.11.1' => '0031d09a54af9ecf1216c185e4641e38527643afa09e78d1bd95752e49fe8985',
-    '4.12.4' => 'd81f981dea85165057e92bd0d32c41f990890c57c35e2f0857229c9e490f7a1b'
+    '4.12.4' => 'd81f981dea85165057e92bd0d32c41f990890c57c35e2f0857229c9e490f7a1b',
+    '4.13.3' => 'b03010df2c491192dfda489fb6b5a99e83670ac9bc12fc76b1a144ddb2af3f76'
   },
   # See: https://downloadcenter.intel.com/download/18700/Ethernet-Intel-Network-Adapter-Virtual-Function-Driver-for-Intel-10-Gigabit-Ethernet-Network-Connections
+  # This is the ID in the downloadmirror.intel.com download URL + /eng if it's there
   'intel_download_ids' => {
-    '4.9.3'  => '30241',
-    '4.10.2' => '30274',
-    '4.11.1' => '18700',
-    '4.12.4' => '18700'
+    '4.9.3'  => '30241/eng',
+    '4.10.2' => '30274/eng',
+    '4.11.1' => '18700/eng',
+    '4.12.4' => '18700/eng',
+    '4.13.3' => '682694'
   }
 }
 

@@ -36,6 +36,16 @@ if version.to_f < 2.3
   end
 end
 
+# This bug was introduced in 2.7.x, see: https://github.com/amzn/amzn-drivers/commit/d13752ff53f60dbc0f0a41cc68f9550f4d23b4a5
+if version.start_with?('2.7')
+  cookbook_file "#{Chef::Config[:file_cache_path]}/ena-rpmbuild/patches/rhel-8.6.patch" do
+    source 'ena-2.7-rhel-8.6.patch'
+    owner  'root'
+    group  'root'
+    mode   '0644'
+  end
+end
+
 remote_file "#{Chef::Config[:file_cache_path]}/ena-rpmbuild/amzn-drivers-ena_linux_#{version}.tar.gz" do
   source "https://github.com/amzn/amzn-drivers/archive/ena_linux_#{version}.tar.gz"
   owner  'root'

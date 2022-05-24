@@ -89,6 +89,6 @@ end
 package 'ena'
 
 # And trigger a DKMS build (shouldn't be needed but is done in case it was missed)
-execute "dkms install ena/#{version}" do
+execute "dkms install ena/#{version} || (cat /var/lib/dkms/ena/#{version}/build/make.log && exit 1)" do
   live_stream true
 end

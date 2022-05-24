@@ -9,6 +9,9 @@
 
 raise NotImplementedError, "ec2-drivers::ixgbevf only supports CentOS/RHEL at this time, not #{node['platform']}" unless platform_family?('rhel')
 
+# Required to build ixgbevf
+package 'elfutils-libelf-devel'
+
 version     = node['ec2-drivers']['ixgbevf']['version']
 built_rpm   = "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild/noarch/ixgbevf-#{version}-1dkms.noarch.rpm"
 install_loc = "#{node['ec2-drivers']['localrepo']['root']}/#{node['kernel']['machine']}/RPMS/ixgbevf-#{version}-1dkms.noarch.rpm"
@@ -22,7 +25,7 @@ directory "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild" do
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/ixgbevf-rpmbuild/ixgbevf-#{version}.tar.gz" do
-  source "https://downloadmirror.intel.com/#{node['ec2-drivers']['ixgbevf']['intel_download_ids'][version]}/eng/ixgbevf-#{version}.tar.gz"
+  source "https://downloadmirror.intel.com/#{node['ec2-drivers']['ixgbevf']['intel_download_ids'][version]}/ixgbevf-#{version}.tar.gz"
   owner  'root'
   group  'root'
   mode   '0644'

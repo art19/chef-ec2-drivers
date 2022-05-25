@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 default['ec2-drivers']['ena'] = {
-  'version'   => '2.6.0',
+  'version'   => '2.7.1',
   'install'   => true,
   'checksums' => {
     '2.2.11' => 'e01cf2456d399804593339507ebe89a197d6ed640e0730e0af25efb2681f6c60',
     '2.3.0'  => '0e16f24a438f8329c4982511a459d4e896caaba94384b042b4e0500f2de89990',
     '2.4.0'  => 'e20a9c8c328ac6d11e38bb59982b5556e4530b9fa59994e07cc8b3ed8144f222',
     '2.5.0'  => '0d6eaf972046b54595a4039104f507b35fb649310acb6eafdd64476586a38de3',
-    '2.6.0'  => '3c5909e16ef18b7c5fdf26511c4e6eea1787ca59ef936161873de7ef12a20a4c'
+    '2.6.0'  => '3c5909e16ef18b7c5fdf26511c4e6eea1787ca59ef936161873de7ef12a20a4c',
+    '2.6.1'  => 'be894ec506cc980349c72bc0dd57a7076ec81e1c315cd40e42ade0464ff565ad',
+    '2.7.0'  => '74f5d86c55c7c50982c405661be613e3d2c3f28fba977743fd0b4d96fcf11d60',
+    '2.7.1'  => '860119a062ef4662b05e2b270d231f588bf02b00cdeb3cef5e7cb7972449630f'
   }
 }
 

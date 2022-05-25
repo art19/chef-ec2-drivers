@@ -1,0 +1,31 @@
+RHEL 8.6 backported the eth_hw_addr_set function and a few other features, which creates errors like:
+
+/var/lib/dkms/ena/2.7.1/build/ena/kcompat.h:889:20: error: redefinition of ‘eth_hw_addr_set’
+/var/lib/dkms/ena/2.7.1/build/ena/ena_ethtool.c:1111:19: error: initialization of ‘int (*)(struct net_device *,
+  struct ethtool_coalesce *, struct kernel_ethtool_coalesce *, struct netlink_ext_ack *)’ from incompatible
+  pointer type ‘int (*)(struct net_device *, struct ethtool_coalesce *)’ [-Werror=incompatible-pointer-types]
+
+--- a/ena/kcompat.h	2022-05-24 03:14:38.290993723 +0000
++++ b/ena/kcompat.h	2022-05-24 03:25:19.897993723 +0000
+@@ -884,16 +884,18 @@
+ #define ENA_XDP_XMIT_FREES_FAILED_DESCS_INTERNALLY
+ #endif
+
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 15, 0)
++#if ((LINUX_VERSION_CODE < KERNEL_VERSION(5, 15, 0)) && \
++     !(RHEL_RELEASE_CODE && RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(8,6)))
+
+ static inline void eth_hw_addr_set(struct net_device *dev, const u8 *addr)
+ {
+ 	memcpy(dev->dev_addr, addr, ETH_ALEN);
+ }
+
+-#endif /* LINUX_VERSION_CODE < KERNEL_VERSION(5, 15, 0) */
++#endif /* LINUX_VERSION_CODE < KERNEL_VERSION(5, 15, 0) but not RHEL >= 8.6 */
+
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 15, 0)
++#if ((LINUX_VERSION_CODE >= KERNEL_VERSION(5, 15, 0)) || \
++     (RHEL_RELEASE_CODE && RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(8,6)))
+ #define ENA_EXTENDED_COALESCE_UAPI_WITH_CQE_SUPPORTED
+ #endif
+

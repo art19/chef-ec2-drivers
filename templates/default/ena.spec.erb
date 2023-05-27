@@ -29,6 +29,8 @@ mkdir -p %{buildroot}/usr/src/%{module}-%{version}/patches
 cp %{_topdir}/patches/kernel-5.9.patch %{buildroot}/usr/src/%{module}-%{version}/patches
 <% elsif @version.to_f == 2.7 %>
 cp %{_topdir}/patches/rhel-8.6.patch %{buildroot}/usr/src/%{module}-%{version}/patches
+<% elsif @version == "2.8.6" %>
+cp %{_topdir}/patches/rhel-8.8.patch %{buildroot}/usr/src/%{module}-%{version}/patches
 <% end %>
 cat <<'EOS' > %{buildroot}/usr/src/%{module}-%{version}/dkms.conf
 PACKAGE_NAME="ena"
@@ -45,6 +47,8 @@ PATCH[0]=kernel-5.9.patch
 PATCH_MATCH[0]=^5.9.*
 <% elsif @version.start_with?('2.7') %>
 PATCH[0]=rhel-8.6.patch
+<% elsif @version == "2.8.6" %>
+PATCH[0]=rhel-8.8.patch
 <% end %>
 EOS
 
@@ -77,6 +81,9 @@ exit 0
 exit 0
 
 %changelog
+* Fri May 26 2023 Keith Gable <gablk@amazon.com> <%= @version %>-1dkms
+- Added patch for ENA 2.8.6 to make it work on RHEL == 8.8
+
 * Mon May 23 2022 Keith Gable <gablk@amazon.com> <%= @version %>-1dkms
 - Added patch for ENA 2.7.x to make it work on RHEL >= 8.6
 

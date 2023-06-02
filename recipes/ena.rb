@@ -46,6 +46,16 @@ if version.start_with?('2.7')
   end
 end
 
+# RHEL 9.2 changes that break ENA <2.8.6 also break RHEL 8.8
+if version == '2.8.6'
+  cookbook_file "#{Chef::Config[:file_cache_path]}/ena-rpmbuild/patches/rhel-8.8.patch" do
+    source 'ena-2.8.6-rhel-8.8.patch'
+    owner  'root'
+    group  'root'
+    mode   '0644'
+  end
+end
+
 remote_file "#{Chef::Config[:file_cache_path]}/ena-rpmbuild/amzn-drivers-ena_linux_#{version}.tar.gz" do
   source "https://github.com/amzn/amzn-drivers/archive/ena_linux_#{version}.tar.gz"
   owner  'root'
